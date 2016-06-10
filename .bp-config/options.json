@@ -1,4 +1,5 @@
 {
+  "LIBDIR": "",
   "WEBDIR": "public",
   "PHP_VERSION": "{PHP_55_LATEST}",
   "PHP_EXTENSIONS": [ "bz2", "zlib", "openssl", "redis", "fpm", "tokenizer", "curl", "mcrypt", "mbstring", "pdo", "pdo_mysql"]

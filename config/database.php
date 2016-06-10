@@ -9,6 +9,28 @@
  * file that was distributed with this source code.
  */
 
+if (array_has($_ENV, 'VCAP_SERVICES')) {
+    try {
+        $vcapServices = json_decode($_ENV['VCAP_SERVICES']);
+        if (property_exists($vcapServices, 'mariadb')) {
+            $mariaDbConnection = head($vcapServices->mariadb)->credentials;
+
+            putenv('DB_CONNECTION=mysql');
+            putenv('DB_HOST=' . $mariaDbConnection->host);
+            putenv('DB_PORT=' . $mariaDbConnection->port);
+            putenv('DB_DATABASE=' . $mariaDbConnection->database);
+            putenv('DB_USERNAME=' . $mariaDbConnection->username);
+            putenv('DB_PASSWORD=' . $mariaDbConnection->password);
+            putenv('APP_ENV=production');
+            putenv('APP_DEBUG=false');
+            putenv('APP_KEY=1234567890123456');
+        }
+    }
+    catch (Exception $e) {
+        dd($e->getMessage());
+    }
+}
+
 return [
 
     /*
@@ -35,7 +57,7 @@ return [
     |
     */
 
-    'default' => env('DB_DRIVER', 'sqlite'),
+    'default' => env('DB_DRIVER', 'mysql'),
 
     /*
     |--------------------------------------------------------------------------
@@ -63,11 +85,11 @@ return [
 
         'mysql' => [
             'driver'    => 'mysql',
-            'host'      => env('DB_HOST', null),
-            'database'  => env('DB_DATABASE', null),
-            'username'  => env('DB_USERNAME', null),
-            'password'  => env('DB_PASSWORD', null),
-            'port'      => env('DB_PORT', '3306'),
+            'host'      => env('DB_HOST', '127.0.0.1'),
+            'database'  => env('DB_DATABASE', 'CF_E347CFF3_04F8_466B_AFEC_C64923AE771A'),
+            'username'  => env('DB_USERNAME', 'wLQN40kn4DQCkfE9'),
+            'password'  => env('DB_PASSWORD', 'bZ2uq1GOoZ2gbk1W'),
+            'port'      => env('DB_PORT', '13000'),
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix'    => env('DB_PREFIX', null),

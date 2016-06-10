@@ -1,8 +1,8 @@
 ---
  applications:
- - name: cachet-test
-   memory: 128M
-   instances: 2
+ - name: cachet-dave
+   memory: 256M
+   instances: 1
    buildpack: https://github.com/cloudfoundry/php-buildpack
    env:
      CF_STAGING_TIMEOUT: 15
